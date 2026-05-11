@@ -88,6 +88,8 @@
 				align-items: center;
 				justify-content: center;
 				z-index: 10;
+				/* 防止滚动穿透 */
+				overflow: hidden;
 			}
 
 			.mask.show {
@@ -105,14 +107,38 @@
 				line-height: 1.7;
 				font-size: 16px;
 				position: relative;
+				/* 核心改动：设置最大高度和滚动 */
+				max-height: 70vh;
+				overflow-y: auto;
+				/* 优化滚动条样式 */
+				scrollbar-width: thin;
+				scrollbar-color: #ccc transparent;
+			}
+
+			/* 自定义滚动条样式（Webkit 浏览器） */
+			.letter::-webkit-scrollbar {
+				width: 6px;
+			}
+
+			.letter::-webkit-scrollbar-track {
+				background: transparent;
+			}
+
+			.letter::-webkit-scrollbar-thumb {
+				background-color: #ccc;
+				border-radius: 3px;
 			}
 
 			.close {
-				position: absolute;
-				right: 14px;
-				top: 10px;
+				position: sticky;
+				right: 0;
+				top: 0;
 				cursor: pointer;
 				font-size: 18px;
+				float: right;
+				background: #fff;
+				padding-left: 8px;
+				z-index: 1;
 			}
 
 			/* 🎵 */
@@ -135,7 +161,7 @@
 
 		<div class="moon"></div>
 
-		<div class="center-text">🧔🏻杨越🫵🏻 <br>🎉25岁生日快乐🤪🥳</div>
+		<div class="center-text">🧔🏻杨越🫵🏻 <br>点蛋糕，笨蛋，接收我满满的愤怒</div>
 
 		<!-- 🎂 -->
 		<div class="cake">🎂</div>
@@ -146,13 +172,20 @@
 				<div class="close">✖</div>
 				<h3>🧔🏻胡子很扎手</h3>
 				<div>
+					其实我知道你删我了在5.2的时候，然后我也把你微信删了。这次我不会主动了，防我跟防贼一样😓你不发消息给我，我都不会再发消息给你了。
+					什么联系方式都没有了，对就这样把我赶出你的生活。那天晚上你就是莫名生气找借口走的，然后我哭了一晚上。你真的以为这两年我单纯想和你睡觉吗？你从来没有怀疑过我心里还有你吗？
+					我以为你会接受我，我错了，我得到的只有你的厌恶，你的驱赶。真他妈的每天晚上心痛，都不知道为你哭了多少次，每次都好了伤疤忘了痛一样，又舔回去。
+					哈哈哈，这次我真的心痛得麻了，我不敢再联系你了，人赶多了，真的会走的。如果一辈子不联系是你希望的，那恭喜你成功了，我不会再主动发消息给你了。你太冷漠了，对我；你对你其他朋友家人都不这样，对我太苛刻了。
+					你他妈的，好想锤你。真他妈的又爱又恨。<br>
+					2026.05.11
+					<br /><br />
 					25岁生日快乐 🎉<br>
 					哈哈哈我知道你不想看了。时间很快你到了25岁，看到你现在工作蛮好 我不经想起一年前，我在广州和你说过的
 					你25岁会变得有钱，有点准吧。祝你一直暴富，25岁生日快乐哟！<br>
 					2026.02.16
 					<br /><br />
 
-					<div style="font-size:0.2px;">这段可以不看，我的哔哔赖赖，你可能觉得我很矫情，话很多，很烦人。我变了挺多的，可是你好像还是对我有刻板印象。
+					<div style="font-size:2px;">这段可以不看，我的哔哔赖赖，你可能觉得我很矫情，话很多，很烦人。我变了挺多的，可是你好像还是对我有刻板印象。
 						我问你是不是讨厌我，你说没有，其实我觉得你会有点讨厌我。你说把我当普通朋友，可是你什么都拉黑我，
 						是个人都会伤心，有时候我感觉你只是把我看成 一个🐔 一个干净的便宜的🐔。你总是防备我，我是什么恶人吗？我从没有伤害过你。这样显得我像什么贱人一样
 						你什么时候能对我改观，你老这样我感觉我很贱💔。笑死，哔哔赖赖都只敢偷偷地小字骂，真孬。你会觉得我还喜欢你，其实我不敢了，或许你心里有其他人，
@@ -260,10 +293,15 @@
 			const close = document.querySelector(".close");
 			cake.onclick = () => mask.classList.add("show");
 			close.onclick = () => mask.classList.remove("show");
+
+			// 窗口大小变化时重新设置画布尺寸
+			window.addEventListener('resize', () => {
+				starCanvas.width = innerWidth;
+				starCanvas.height = innerHeight;
+				fw.width = innerWidth;
+				fw.height = innerHeight;
+			});
 		</script>
 
 	</body>
-
 </html>
-
-
